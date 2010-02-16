@@ -13,7 +13,7 @@ int main(void) {
 
 	usart_init();
 
-	USART_TXS("MCU ready.\n");
+//	USART_TXS("MCU ready.\n");
 
 	delayloop16(30000);
 

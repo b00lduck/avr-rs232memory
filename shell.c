@@ -96,6 +96,8 @@ void shell() {
 			doMacGetCommand(buffer);
 		} else if (strncmp(cmd,"DUMP",4) == 0) {			
 			dumpEeprom();		
+		} else if (strncmp(cmd,"NOP",3) == 0) {			
+			USART_TXS("NOP\n");
 		} else {
 			USART_TXS("ERROR\n");			
 		}
