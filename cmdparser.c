@@ -1,5 +1,5 @@
 #include "stdinc.h"
-
+#include "parser.h"
 
 unsigned char parseCommand(char* line, char* cmd) {
 	char* oldline = line;
@@ -28,7 +28,9 @@ unsigned char calcSetChecksum(unsigned int addr, unsigned char data) {
 
 unsigned char calcMacSetChecksum(unsigned char bytes[]) {
 	
-	int i,x;
+	unsigned char i;
+	unsigned int x = 0;
+
 	for(i=0;i<6;i++) {	
 		x += bytes[i];		
 	}

@@ -1,4 +1,6 @@
 #include "stdinc.h"
+#include "usart.h"
+#include "eeprom.h"
 
 void dumpEeprom() {
 
@@ -7,6 +9,8 @@ void dumpEeprom() {
 	for(i=0;i<EEPROM_SIZE;i++) {
 
 		char buffer[32];
+		char buffer2[64];
+
 		unsigned char x;
 		getByte(i,&x);
 		sprintf(buffer,"%02x",x);
@@ -18,8 +22,7 @@ void dumpEeprom() {
 			USART_TXS("  ");		
 		}
 
-		USART_TXS(buffer);
-		
+		USART_TXS(buffer);		
 
 		if ((i+1) % 16) {
 			USART_TXS(" ");

@@ -5,7 +5,7 @@
 ## General Flags
 PROJECT = motor_pwm
 MCU = atmega88
-TARGET = motor_pwm.elf
+TARGET = serialmem.elf
 CC = avr-gcc
 
 CPP = avr-g++
@@ -15,7 +15,7 @@ COMMON = -mmcu=$(MCU)
 
 ## Compile options common for all C compilation units.
 CFLAGS = $(COMMON)
-CFLAGS += -Wall -gdwarf-2  -O3 -fsigned-char
+CFLAGS += -Wall -gdwarf-2  -DF_CPU=11059200UL -O3 -fsigned-char
 CFLAGS += -MD -MP -MT $(*F).o -MF dep/$(@F).d 
 
 ## Assembly specific flags
@@ -25,7 +25,7 @@ ASMFLAGS += -x assembler-with-cpp -Wa,-gdwarf2
 
 ## Linker flags
 LDFLAGS = $(COMMON)
-LDFLAGS +=  -Wl,-Map=motor_pwm.map
+LDFLAGS +=  -Wl,-Map=serialmem.map
 
 
 ## Intel Hex file production flags
@@ -43,7 +43,7 @@ OBJECTS = tools.o shell.o usart.o serialmem.o cmdparser.o eeprom.o parser.o text
 LINKONLYOBJECTS = 
 
 ## Build
-all: $(TARGET) motor_pwm.hex motor_pwm.eep motor_pwm.lss size
+all: $(TARGET) serialmem.hex serialmem.eep serialmem.lss size
 
 ## Compile
 tools.o: ../tools.c
@@ -90,7 +90,7 @@ size: ${TARGET}
 ## Clean target
 .PHONY: clean
 clean:
-	-rm -rf $(OBJECTS) motor_pwm.elf dep/* motor_pwm.hex motor_pwm.eep motor_pwm.lss motor_pwm.map
+	-rm -rf $(OBJECTS) serialmem.elf dep/* serialmem.hex serialmem.eep serialmem.lss serialmem.map
 
 
 ## Other dependencies

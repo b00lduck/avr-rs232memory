@@ -36,7 +36,7 @@ unsigned char getHexnumber2(unsigned char* out, char **line) {
 	return SUCCESS;
 }
 
-unsigned char getHexnumber3(unsigned char* out, char **line) {
+unsigned char getHexnumber3(unsigned int* out, char **line) {
 
 	unsigned char a,b,c;
 

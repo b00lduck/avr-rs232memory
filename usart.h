@@ -1,4 +1,5 @@
 #pragma once
+
 extern char buffer[LINEBUFFER_LENGTH];
 
 void USART_TX(char data );

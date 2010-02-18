@@ -1,7 +1,6 @@
 #pragma once
 
 
-extern char buffer2[64];
 
 
 

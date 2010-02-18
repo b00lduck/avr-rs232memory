@@ -1,4 +1,6 @@
 #include "stdinc.h"
+#include "tools.h"
+#include "usart.h"
 
 char buffer[LINEBUFFER_LENGTH];
 
@@ -18,32 +20,40 @@ void usart_init() {
 }
 
 void USART_TX(char data ) {
-	while ( !( UCSR0A & (1<<UDRE0)) );
-	UDR0 = data;
+	while ( !( UCSR0A & (1<<UDRE0)) ) {
+		wdt_reset();
+	}
+	UDR0 = data;	
 }
 
 void USART_TXS(char* s) {
+	SBI(PORTC,0);
 	while(*s) {
 		USART_TX(*s);
 		s++;		
 	}
+CBI(PORTC,0);
 }
 
 char USART_RX(void) {
-    while (!(UCSR0A & (1<<RXC0)));
+    while (!(UCSR0A & (1<<RXC0))) {
+		wdt_reset();
+	};
 	return UDR0;
 }
 
 void USART_RXS(void) {
-	uint8_t t = 0;
-	uint8_t* b = buffer;
+	unsigned char t = 0;
+	char* b = buffer;
 	unsigned char len = LINEBUFFER_LENGTH;
 	do {
  		t = USART_RX();
+		SBI(PORTC,0);
 		if (len) {
 			*b++ = t;
 			len--;
 		}
+		CBI(PORTC,0);
 	} while(t != 13);
 	*b = 0; // ende
 }
